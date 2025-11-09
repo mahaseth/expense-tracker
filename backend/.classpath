@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Category-Service/src/main/java"/>
+	<classpathentry kind="src" path="Category-Service/src/test/java"/>
+	<classpathentry kind="src" path="Service-Discovery/src/main/java"/>
+	<classpathentry kind="src" path="Service-Discovery/src/test/java"/>
+	<classpathentry kind="src" path="Transaction-Service/src/main/java"/>
+	<classpathentry kind="src" path="Transaction-Service/src/test/java"/>
+	<classpathentry kind="src" path="User-Service/src/main/java"/>
+	<classpathentry kind="src" path="User-Service/src/test/java"/>
+	<classpathentry kind="lib" path="Category-Service/target/Category-Service-0.0.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="Service-Discovery/target/Service-Discovery-0.0.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="Transaction-Service/target/Transaction-Service-0.0.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="User-Service/target/User-Service-0.0.1-SNAPSHOT.jar"/>
+	<classpathentry kind="output" path="Category-Service/target/classes"/>
+</classpath>

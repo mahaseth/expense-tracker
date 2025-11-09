@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "categoryClient", url = "${CATEGORY-SERVICE}")
+@FeignClient(name = "Category-Service")
 public interface CategoryClient {
 
 	@GetMapping("/api/v1/categories/{id}")

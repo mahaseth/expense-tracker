@@ -1,4 +1,4 @@
-package com.expense_tracker.user_service;
+package com.expensetracker.userservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

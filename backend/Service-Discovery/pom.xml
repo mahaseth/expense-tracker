@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.expensetracker</groupId>
-	<artifactId>discovery-service</artifactId>
+	<artifactId>Service-Discovery</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>discovery-service</name>
-	<description>Demo project for Spring Boot</description>
+	<name>Service-Discovery</name>
+	<description>Service Discovery for Expense Tracker</description>
 	<url/>
 	<licenses>
 		<license/>
