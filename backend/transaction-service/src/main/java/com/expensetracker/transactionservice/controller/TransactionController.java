@@ -38,18 +38,18 @@ public class TransactionController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<TransactionResponse> get(@PathVariable Long id) {
+	public ResponseEntity<TransactionResponse> get(@PathVariable String id) {
 		return ResponseEntity.ok(service.getById(id));
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<TransactionResponse> update(@PathVariable Long id,
+	public ResponseEntity<TransactionResponse> update(@PathVariable String id,
 			@RequestBody UpdateTransactionRequest req) {
 		return ResponseEntity.ok(service.update(id, req));
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
+	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}

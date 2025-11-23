@@ -3,12 +3,12 @@ package com.expensetracker.transactionservice.repository;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.expensetracker.transactionservice.entity.Transaction;
 import com.expensetracker.transactionservice.entity.TransactionType;
 
-public interface TransactionRepository extends JpaRepository<Transaction, Long> {
+public interface TransactionRepository extends MongoRepository<Transaction, String> {
 
 	List<Transaction> findByUserIdOrderByDateDesc(Long userId);
 

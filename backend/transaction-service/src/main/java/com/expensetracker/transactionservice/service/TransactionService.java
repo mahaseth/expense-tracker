@@ -11,11 +11,11 @@ import com.expensetracker.transactionservice.entity.TransactionType;
 public interface TransactionService {
 	TransactionResponse create(CreateTransactionRequest req);
 
-	TransactionResponse getById(Long id);
+	TransactionResponse getById(String id);
 
-	TransactionResponse update(Long id, UpdateTransactionRequest req);
+	TransactionResponse update(String id, UpdateTransactionRequest req);
 
-	void delete(Long id);
+	void delete(String id);
 
 	List<TransactionResponse> listByUser(Long userId, TransactionType type, LocalDate from, LocalDate to,
 			Long categoryId);

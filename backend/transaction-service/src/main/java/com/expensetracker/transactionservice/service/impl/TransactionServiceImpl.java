@@ -56,14 +56,14 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public TransactionResponse getById(Long id) {
+	public TransactionResponse getById(String id) {
 		Transaction t = repo.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Transaction not found: " + id));
 		return mapper.toResponse(t);
 	}
 
 	@Override
-	public TransactionResponse update(Long id, UpdateTransactionRequest req) {
+	public TransactionResponse update(String id, UpdateTransactionRequest req) {
 		Transaction t = repo.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Transaction not found: " + id));
 
@@ -107,7 +107,7 @@ public class TransactionServiceImpl implements TransactionService {
 	}
 
 	@Override
-	public void delete(Long id) {
+	public void delete(String id) {
 		if (!repo.existsById(id))
 			throw new ResourceNotFoundException("Transaction not found: " + id);
 		repo.deleteById(id);

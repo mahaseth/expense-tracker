@@ -6,7 +6,7 @@ import java.time.OffsetDateTime;
 
 import com.expensetracker.transactionservice.entity.TransactionType;
 
-public record TransactionResponse(Long id, Long userId, TransactionType type, LocalDate date, BigDecimal amount,
-		Long categoryId, Long subcategoryId, String note, String description, OffsetDateTime createdAt,
+public record TransactionResponse(String id, UserDto user, TransactionType type, LocalDate date, BigDecimal amount,
+		CategoryDto category, SubcategoryDto subcategory, String note, String description, OffsetDateTime createdAt,
 		OffsetDateTime updatedAt) {
 }
