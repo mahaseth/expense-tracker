@@ -1,0 +1,86 @@
+services:
+  service-discovery:
+    container_name: service-discovery
+    build:
+      context: ../Service-Discovery
+      dockerfile: Dockerfile
+    image: service-discovery:latest
+    ports:
+      - "8094:8094"
+    networks:
+      - ms-network
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ../API-Gateway
+      dockerfile: Dockerfile
+    image: api-gateway:latest
+    ports:
+      - "8095:8095"
+    environment:
+      EUREKA_HOST: service-discovery
+    networks:
+      - ms-network
+    depends_on:
+      - service-discovery
+
+  user-service:
+    container_name: user-service
+    build:
+      context: ../User-Service
+      dockerfile: Dockerfile
+    image: user-service:latest
+    ports:
+      - "8091:8091"
+    environment:
+      EUREKA_HOST: service-discovery
+      POSTGRES_DB_HOST: postgresdb
+      POSTGRES_DB_USERNAME: postgres
+      POSTGRES_DB_PASSWORD: postgres
+    networks:
+      - ms-network
+    depends_on:
+      - service-discovery
+
+  transaction-service:
+    container_name: transaction-service
+    build:
+      context: ../Transaction-Service
+      dockerfile: Dockerfile
+    image: transaction-service:latest
+    ports:
+      - "8090:8090"
+    environment:
+      EUREKA_HOST: service-discovery
+      MONGO_DB_HOST: mongodb
+      MONGO_DB_USERNAME: root
+      MONGO_DB_PASSWORD: password
+      USER_DATA_VALIDATION: "false"
+    networks:
+      - ms-network
+    depends_on:
+      - service-discovery
+
+  category-service:
+    container_name: category-service
+    build:
+      context: ../Category-Service
+      dockerfile: Dockerfile
+    image: category-service:latest
+    ports:
+      - "8092:8092"
+    environment:
+      EUREKA_HOST: service-discovery
+      POSTGRES_DB_HOST: postgresdb
+      POSTGRES_DB_USERNAME: postgres
+      POSTGRES_DB_PASSWORD: postgres
+    networks:
+      - ms-network
+    depends_on:
+      - service-discovery
+
+networks:
+  ms-network:
+    external: true
+    name: docker-compose_ms-network

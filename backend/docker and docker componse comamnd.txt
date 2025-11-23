@@ -1,0 +1,78 @@
+Docker
+1. build application
+mvn clean package -DskipTests
+
+2. build docker image
+#we should have filename Dockerfile in our main directory
+#if you want to use different filename than Dockerfile, pass new argument -f <your filename>
+docker build --tag=hotel-discovery-server:latest .
+
+3. Run the docker image 
+docker run -d  --name service-discovery hotel-discovery-server
+
+4. Bind port(to expose the port to external world) format -> -p <host port>:<container port to be mapped>
+docker run -d  -p 8096:8096 --name service-discovery hotel-discovery-server
+
+5. bind to network( to make different services communicate with each other)
+##to create network
+docker network create my-network
+docker network ls
+docker run -d  -p 8096:8096 --network my-network --name service-discovery hotel-discovery-server
+
+6. for checking logs(in windows, you can click on the container to view the log)
+docker logs discovery-server
+
+7. Remove docker image
+	first list images
+docker images
+docker rmi <repository>:<tag>
+
+8. To start docker container
+docker start <container name>
+
+9. to stop docker container
+docker ps -> get container id
+docker stop <container id>
+
+8. To run mongodb in docker
+docker run -d -p27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password --network mongo-network --name mongodb mongo
+
+docker run -d -p8081:8081 -e ME_CONFIG_MONGODB_ADMINUSERNAME=admin -e ME_CONFIG_MONGODB_ADMINPASSWORD=password -e ME_CONFIG_MONGODB_SERVER=mongodb --network mongo-network --name mongo-express-client mongo-express
+
+
+
+Docker Compose
+1. Create docker compose file docker-compose.yml
+
+2. to start(pass -f <filename> if different file name
+docker-compose -f ./db-docker-compose.yml up -d
+
+3. to stop and clean containers
+docker-compose down(note: this will clear all the containers created, not recommended in production)
+
+4. to stop
+docker-container stop
+
+5. to stop specific service only
+docker-container stop service-discovery
+
+6. to start specific service only
+docker-container start service-discovery
+
+7. to rebuild specific service only
+docker-compose stop -t 1 service-discovery
+docker-compose up --build -d service-discovery
+
+8. to add docker build command inside docker compose file
+	build:
+      context: ../user-services
+      dockerfile: Dockerfile
+
+9. to push docker image to docker hub
+create account in docker-hub( or any other docker repository)
+docker login
+docker tag hotel-api-gateway crestasom/hotel-api-gateway
+docker push crestasom/hotel-api-gateway
+
+10. to scale services
+docker-compose up --scale hotel-service=3 (note you should remove container name tag for this to work
