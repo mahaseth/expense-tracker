@@ -20,10 +20,12 @@ import com.expensetracker.transactionservice.repository.TransactionRepository;
 import com.expensetracker.transactionservice.service.TransactionService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class TransactionServiceImpl implements TransactionService {
 
 	private final TransactionRepository repo;
@@ -157,14 +159,18 @@ public class TransactionServiceImpl implements TransactionService {
 			return List.of();
 		}
 
+		log.info("calling user service to get user for {}", userId);
 		var user = userClient.getUserById(userId);
+		log.info("user from user service {}", user);
 
 		List<Long> categoryIds = list.stream().map(Transaction::getCategoryId).distinct().toList();
 		List<Long> subcategoryIds = list.stream().filter(t -> t.getSubcategoryId() != null)
 				.map(Transaction::getSubcategoryId).distinct().toList();
-
+		log.info("calling category service to get categories for [{}]", categoryIds);
 		var categories = categoryClient.getCategories(categoryIds);
+		log.info("Categories [{}]", categories);
 		var subcategories = categoryClient.getSubcategories(subcategoryIds);
+		log.info("Sub-categories [{}]", subcategories);
 
 		return list.stream().map(t -> mapper.toResponse(t, user, categories, subcategories)).toList();
 	}

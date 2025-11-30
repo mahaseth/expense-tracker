@@ -41,4 +41,14 @@ docker-compose up -d category-service
 
 - First disable and enable only the required test in jmeter UI.
 - Run bellow command
+
   > jmeter -n -t ../backend/performance-testing.jmx -l performance-testing/result-combined.jtl -e -o performance-testing/result-combined
+
+  ## for running monitoring container: prometheus and grafana
+
+  > docker-compose -f ./docker-monitoring-compose.yml up -d
+
+  > docker-compose -f ./docker-monitoring-compose.yml down
+
+  - Open localhost:9090 for prometheus UI
+  - Open localhost:3000 for opening grafana UI -> add data source with connection as http://prometheus:9090 -> save & test, Add dashboard -> dashboard id -> save.
