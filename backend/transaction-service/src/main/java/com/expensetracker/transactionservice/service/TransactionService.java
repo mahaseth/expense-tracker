@@ -19,4 +19,7 @@ public interface TransactionService {
 
 	List<TransactionResponse> listByUser(Long userId, TransactionType type, LocalDate from, LocalDate to,
 			Long categoryId);
+
+	List<TransactionResponse> listByUserOptimized(Long userId, TransactionType type, LocalDate from, LocalDate to,
+			Long categoryId);
 }

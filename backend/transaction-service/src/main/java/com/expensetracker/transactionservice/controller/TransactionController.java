@@ -62,4 +62,13 @@ public class TransactionController {
 			@RequestParam(required = false) Long categoryId) {
 		return ResponseEntity.ok(service.listByUser(userId, type, from, to, categoryId));
 	}
+
+	@GetMapping("/by-user/{userId}/optimized")
+	public ResponseEntity<List<TransactionResponse>> listByUserOptimized(@PathVariable Long userId,
+			@RequestParam(required = false) TransactionType type,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate from,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to,
+			@RequestParam(required = false) Long categoryId) {
+		return ResponseEntity.ok(service.listByUserOptimized(userId, type, from, to, categoryId));
+	}
 }

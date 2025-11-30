@@ -159,4 +159,16 @@ public class CategoryServiceImpl implements CategoryService {
 		return subcategoryRepo.findByCategoryIdOrderByNameAsc(categoryId).stream().map(subcategoryMapper::toResponse)
 				.toList();
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<CategoryResponse> getCategoriesByIds(List<Long> ids) {
+		return categoryRepo.findAllById(ids).stream().map(categoryMapper::toResponse).toList();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<SubcategoryResponse> getSubcategoriesByIds(List<Long> ids) {
+		return subcategoryRepo.findAllById(ids).stream().map(subcategoryMapper::toResponse).toList();
+	}
 }

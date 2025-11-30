@@ -133,4 +133,39 @@ public class TransactionServiceImpl implements TransactionService {
 		}
 		return list.stream().map(mapper::toResponse).toList();
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<TransactionResponse> listByUserOptimized(Long userId, TransactionType type, LocalDate from,
+			LocalDate to, Long categoryId) {
+		List<Transaction> list;
+		if (categoryId != null && from != null && to != null) {
+			list = repo.findByUserIdAndCategoryIdAndDateBetweenOrderByDateDesc(userId, categoryId, from, to);
+		} else if (categoryId != null) {
+			list = repo.findByUserIdAndCategoryIdOrderByDateDesc(userId, categoryId);
+		} else if (type != null && from != null && to != null) {
+			list = repo.findByUserIdAndTypeAndDateBetweenOrderByDateDesc(userId, type, from, to);
+		} else if (from != null && to != null) {
+			list = repo.findByUserIdAndDateBetweenOrderByDateDesc(userId, from, to);
+		} else if (type != null) {
+			list = repo.findByUserIdAndTypeOrderByDateDesc(userId, type);
+		} else {
+			list = repo.findByUserIdOrderByDateDesc(userId);
+		}
+
+		if (list.isEmpty()) {
+			return List.of();
+		}
+
+		var user = userClient.getUserById(userId);
+
+		List<Long> categoryIds = list.stream().map(Transaction::getCategoryId).distinct().toList();
+		List<Long> subcategoryIds = list.stream().filter(t -> t.getSubcategoryId() != null)
+				.map(Transaction::getSubcategoryId).distinct().toList();
+
+		var categories = categoryClient.getCategories(categoryIds);
+		var subcategories = categoryClient.getSubcategories(subcategoryIds);
+
+		return list.stream().map(t -> mapper.toResponse(t, user, categories, subcategories)).toList();
+	}
 }

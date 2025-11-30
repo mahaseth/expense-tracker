@@ -44,5 +44,18 @@ public class TransactionMapper {
 				categoryDto, subcategoryDto, t.getNote(), t.getDescription(), t.getCreatedAt(),
 				t.getUpdatedAt());
 	}
+
+	public TransactionResponse toResponse(Transaction t, UserDto user, List<CategoryDto> categories,
+			List<SubcategoryDto> subcategories) {
+		CategoryDto categoryDto = categories.stream().filter(c -> c.id().equals(t.getCategoryId())).findFirst()
+				.orElse(null);
+		SubcategoryDto subcategoryDto = null;
+		if (t.getSubcategoryId() != null) {
+			subcategoryDto = subcategories.stream().filter(sc -> sc.id().equals(t.getSubcategoryId())).findFirst()
+					.orElse(null);
+		}
+		return new TransactionResponse(t.getId(), user, t.getType(), t.getDate(), t.getAmount(), categoryDto,
+				subcategoryDto, t.getNote(), t.getDescription(), t.getCreatedAt(), t.getUpdatedAt());
+	}
 }
 

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.expensetracker.categoryservice.dto.CategoryResponse;
 import com.expensetracker.categoryservice.dto.CategoryTreeResponse;
 import com.expensetracker.categoryservice.dto.CreateCategoryRequest;
@@ -63,6 +65,16 @@ public class CategoryController {
 	@GetMapping("/by-user/{userId}/tree")
 	public ResponseEntity<List<CategoryTreeResponse>> listCategoryTree(@PathVariable Long userId) {
 		return ResponseEntity.ok(service.listCategoryTreeByUser(userId));
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<CategoryResponse>> getCategories(@RequestParam List<Long> ids) {
+		return ResponseEntity.ok(service.getCategoriesByIds(ids));
+	}
+
+	@GetMapping("/subcategories")
+	public ResponseEntity<List<SubcategoryResponse>> getSubcategories(@RequestParam List<Long> ids) {
+		return ResponseEntity.ok(service.getSubcategoriesByIds(ids));
 	}
 
 	// ----- Subcategories -----

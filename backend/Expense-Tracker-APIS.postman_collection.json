@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "a6f9ecb1-18bf-444c-aa9a-b061398004c2",
-		"name": "Expense Tracker APIS",
+		"name": "Expense-Tracker-APIS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "4299206"
 	},
@@ -401,7 +401,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\": 19,\r\n    \"type\": \"INCOME\",\r\n    \"date\": \"2025-11-08\",\r\n    \"amount\": 3000.00,\r\n    \"categoryId\": 20,\r\n    \"note\": \"Salary\",\r\n    \"description\": \"Monthly salary\"\r\n  }",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"type\": \"INCOME\",\r\n    \"date\": \"2025-11-08\",\r\n    \"amount\": 3000.00,\r\n    \"categoryId\": 20,\r\n    \"note\": \"Salary\",\r\n    \"description\": \"Monthly salary\"\r\n  }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -409,12 +409,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/api/v1/transactions",
+							"raw": "http://localhost:8095/api/v1/transactions",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8095",
 							"path": [
 								"api",
 								"v1",
@@ -482,18 +482,42 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8092/api/v1/transactions/by-user/1",
+							"raw": "http://localhost:8095/api/v1/transactions/by-user/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8092",
+							"port": "8095",
 							"path": [
 								"api",
 								"v1",
 								"transactions",
 								"by-user",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Optimized] List Transactions by user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8095/api/v1/transactions/by-user/1/optimized",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8095",
+							"path": [
+								"api",
+								"v1",
+								"transactions",
+								"by-user",
+								"1",
+								"optimized"
 							]
 						}
 					},
@@ -551,17 +575,17 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8092/api/v1/transactions/1",
+							"raw": "http://localhost:8095/api/v1/transactions/692335ef5d113f7c74b7c27f",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8092",
+							"port": "8095",
 							"path": [
 								"api",
 								"v1",
 								"transactions",
-								"1"
+								"692335ef5d113f7c74b7c27f"
 							]
 						}
 					},
