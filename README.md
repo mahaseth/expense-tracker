@@ -1,54 +1,112 @@
-# expense-tracker
+# Expense Tracker
 
-# covers code for expense tracker
+Microservices-based expense tracking application with Google OAuth2 authentication.
 
-## To build backend
+---
 
-> cd backend/docker-compose
+## Step 1: 🛠 Generate Auth token from Google OAuth2.
 
-## Run databases
+- Run security-service locally to get auth token.
+- add bellow in application.properties file of security-service
+  - client-id : 
+  - client-secret: 
+- cd to security-service and run bellow command.
+  ./mvnw spring-boot:run -DskipTests
+- use in chrome browser - http://localhost:8093/oauth2/authorization/google
 
-> docker-compose -f ./db-docker-compose.yml up -d
+---
 
-## Build all microservices
+## Step 2: Build Backend
 
-> cd backend/user-service
-> mvn clean package -DskipTests
-> Or use maven wrapper
-> ./mvnw clean package -DskipTests
+### Run Databases
 
-Follow same for all microservice
+```bash
+cd backend/docker-compose
+docker-compose -f ./db-docker-compose.yml up -d
+```
 
-if failed [ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.5.8-SNAPSHOT:repackage
-use bellow command
+### Build All Microservices
 
-> taskkill /F /IM java.exe
+Navigate to each microservice and build:
 
-Running all microservices in docker
+```bash
+cd backend/user-service
+mvn clean package -DskipTests
+# Or use Maven wrapper
+./mvnw clean package -DskipTests
+```
 
-> docker-compose up -d
-> or for building new image and running container.
-> docker-compose up --build -d
+Repeat the same for all microservices (API-Gateway, Category-Service, Transaction-Service, Service-Discovery).
 
-## For rebuilding one service
+**If build fails with:**
 
+```
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.5.8-SNAPSHOT:repackage
+```
+
+Run:
+
+```powershell
+taskkill /F /IM java.exe
+```
+
+### Run All Microservices in Docker
+
+```bash
+docker-compose up -d
+# Or to build new images and run containers
+docker-compose up --build -d
+```
+
+### Rebuild a Single Service
+
+```bash
 docker-compose stop category-service
 docker-compose rm -f category-service
 docker-compose build --no-cache category-service
 docker-compose up -d category-service
+```
 
-## To run performance testing.
+---
 
-- First disable and enable only the required test in jmeter UI.
-- Run bellow command
+Note: Eureka server is running on: http:localhost:8094
 
-  > jmeter -n -t ../backend/performance-testing.jmx -l performance-testing/result-combined.jtl -e -o performance-testing/result-combined
+## Step 3: Performance Testing
 
-  ## for running monitoring container: prometheus and grafana
+1. First, disable and enable only the required tests in JMeter UI
+2. Run the command:
 
-  > docker-compose -f ./docker-monitoring-compose.yml up -d
+```bash
+jmeter -n -t ../backend/performance-testing.jmx -l performance-testing/result-combined.jtl -e -o performance-testing/result-combined
+```
 
-  > docker-compose -f ./docker-monitoring-compose.yml down
+---
 
-  - Open localhost:9090 for prometheus UI
-  - Open localhost:3000 for opening grafana UI -> add data source with connection as http://prometheus:9090 -> save & test, Add dashboard -> dashboard id -> save.
+## Step 4: Monitoring (Prometheus & Grafana)
+
+### Start Monitoring Containers
+
+```bash
+docker-compose -f ./docker-monitoring-compose.yml up -d
+```
+
+### Stop Monitoring Containers
+
+```bash
+docker-compose -f ./docker-monitoring-compose.yml down
+```
+
+### Access Monitoring Dashboards
+
+- **Prometheus UI:** http://localhost:9090
+- **Grafana UI:** http://localhost:3000
+  - Add data source with connection: `http://prometheus:9090`
+  - Save & test, then add dashboards
+
+---
+
+## Getting Auth Token
+
+```
+https://localhost:8095/oauth2/authorization/google
+```
