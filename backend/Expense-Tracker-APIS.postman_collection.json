@@ -12,6 +12,16 @@
 				{
 					"name": "Create user",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b2dlc2htYWhhc2V0aDA3QGdtYWlsLmNvbSIsImlhdCI6MTc2NTcyNjIxMiwiZXhwIjoxNzY1NzI4MDEyfQ.mE9a_YXRSoUB0GsEzTCqOt_4h8dib_ZHLDpv9koO7vc",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -40,8 +50,59 @@
 					"response": []
 				},
 				{
+					"name": "[k8] Create user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b2dlc2htYWhhc2V0aDA3QGdtYWlsLmNvbSIsImlhdCI6MTc2NTcyNjIxMiwiZXhwIjoxNzY1NzI4MDEyfQ.mE9a_YXRSoUB0GsEzTCqOt_4h8dib_ZHLDpv9koO7vc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Yogesh Mahaseth\",\r\n    \"email\":\"Yogesh@gmail.com\",\r\n    \"address\":\"kathamandu\",\r\n    \"phone\": \"987234324324\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://myapp.local/user-service/api/v1/user",
+							"protocol": "http",
+							"host": [
+								"myapp",
+								"local"
+							],
+							"path": [
+								"user-service",
+								"api",
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get all users",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b2dlc2htYWhhc2V0aDA3QGdtYWlsLmNvbSIsImlhdCI6MTc2NTcyMzI1OCwiZXhwIjoxNzY1NzI1MDU4fQ.73vkJ4EUPnn6feDPAC7mT8iL3lJQ8kDksyZHFUwcZJw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -52,6 +113,39 @@
 							],
 							"port": "8095",
 							"path": [
+								"api",
+								"v1",
+								"user",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[k8] Get all users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b2dlc2htYWhhc2V0aDA3QGdtYWlsLmNvbSIsImlhdCI6MTc2NTcyOTEyNSwiZXhwIjoxNzY2MzMzOTI1fQ.JR1bDpixD8mKdIIqRrFVdHZBElY8xe47QiYmAhTR1CM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://myapp.local/user-service/api/v1/user/all",
+							"protocol": "http",
+							"host": [
+								"myapp",
+								"local"
+							],
+							"path": [
+								"user-service",
 								"api",
 								"v1",
 								"user",
@@ -122,6 +216,16 @@
 				{
 					"name": "create category",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b2dlc2htYWhhc2V0aDA3QGdtYWlsLmNvbSIsImlhdCI6MTc2NTcyNjIxMiwiZXhwIjoxNzY1NzI4MDEyfQ.mE9a_YXRSoUB0GsEzTCqOt_4h8dib_ZHLDpv9koO7vc",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -150,6 +254,47 @@
 					"response": []
 				},
 				{
+					"name": "[k8] create category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b2dlc2htYWhhc2V0aDA3QGdtYWlsLmNvbSIsImlhdCI6MTc2NTcyMzI1OCwiZXhwIjoxNzY1NzI1MDU4fQ.73vkJ4EUPnn6feDPAC7mT8iL3lJQ8kDksyZHFUwcZJw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"userId\": 1,\r\n        \"name\": \"Food\"\r\n      }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://myapp.local/category-service/api/v1/categories",
+							"protocol": "http",
+							"host": [
+								"myapp",
+								"local"
+							],
+							"path": [
+								"category-service",
+								"api",
+								"v1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "list category for user",
 					"request": {
 						"method": "GET",
@@ -162,6 +307,40 @@
 							],
 							"port": "8095",
 							"path": [
+								"api",
+								"v1",
+								"categories",
+								"by-user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[k8] list category for user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b2dlc2htYWhhc2V0aDA3QGdtYWlsLmNvbSIsImlhdCI6MTc2NTcyOTEyNSwiZXhwIjoxNzY2MzMzOTI1fQ.JR1bDpixD8mKdIIqRrFVdHZBElY8xe47QiYmAhTR1CM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://myapp.local/category-service/api/v1/categories/by-user/1",
+							"protocol": "http",
+							"host": [
+								"myapp",
+								"local"
+							],
+							"path": [
+								"category-service",
 								"api",
 								"v1",
 								"categories",
@@ -395,6 +574,47 @@
 					"response": []
 				},
 				{
+					"name": "[k8] Add transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b2dlc2htYWhhc2V0aDA3QGdtYWlsLmNvbSIsImlhdCI6MTc2NTcyNjIxMiwiZXhwIjoxNzY1NzI4MDEyfQ.mE9a_YXRSoUB0GsEzTCqOt_4h8dib_ZHLDpv9koO7vc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 1,\r\n    \"type\": \"EXPENSE\",\r\n    \"date\": \"2025-11-08\",\r\n    \"amount\": 120.00,\r\n    \"categoryId\": 1,\r\n    \"subcategoryId\": 1,\r\n    \"note\": \"Had biryani food\",\r\n    \"description\": \"Biryani food at office\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://myapp.local/transaction-service/api/v1/transactions",
+							"protocol": "http",
+							"host": [
+								"myapp",
+								"local"
+							],
+							"path": [
+								"transaction-service",
+								"api",
+								"v1",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create Income",
 					"request": {
 						"method": "POST",
@@ -479,6 +699,16 @@
 				{
 					"name": "List Transactions by user",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b2dlc2htYWhhc2V0aDA3QGdtYWlsLmNvbSIsImlhdCI6MTc2NTcyNjIxMiwiZXhwIjoxNzY1NzI4MDEyfQ.mE9a_YXRSoUB0GsEzTCqOt_4h8dib_ZHLDpv9koO7vc",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -512,6 +742,41 @@
 							],
 							"port": "8095",
 							"path": [
+								"api",
+								"v1",
+								"transactions",
+								"by-user",
+								"1",
+								"optimized"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[K8][Optimized] List Transactions by user Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b2dlc2htYWhhc2V0aDA3QGdtYWlsLmNvbSIsImlhdCI6MTc2NTcyOTEyNSwiZXhwIjoxNzY2MzMzOTI1fQ.JR1bDpixD8mKdIIqRrFVdHZBElY8xe47QiYmAhTR1CM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://myapp.local/transaction-service/api/v1/transactions/by-user/1/optimized",
+							"protocol": "http",
+							"host": [
+								"myapp",
+								"local"
+							],
+							"path": [
+								"transaction-service",
 								"api",
 								"v1",
 								"transactions",
