@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.expensetracker.transactionservice.dto.CategoryDto;
 import com.expensetracker.transactionservice.dto.SubcategoryDto;
+import com.expensetracker.transactionservice.config.FeignAuthConfig;
 
-@FeignClient(name = "Category-Service")
+@FeignClient(name = "Category-Service", configuration = FeignAuthConfig.class)
 public interface CategoryClient {
 
 	@GetMapping("/api/v1/categories/{id}")

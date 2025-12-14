@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: category-service
+  labels:
+    app: category-service
+spec:
+  selector:
+    app: category-service
+  #type: NodePort
+  ports:
+    - port: 8092
+      targetPort: 8092
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: category-service
+spec:
+  selector:
+    matchLabels:
+      app: category-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: category-service
+    spec:
+      containers:
+        - name: category-service
+          image: docker.io/library/category-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8092
+          env: # Setting Enviornmental Variables
+            - name: POSTGRES_DB_HOST # Setting Database host address from configMap
+              value: postgresdb
+            - name: POSTGRES_DB_USERNAME # Setting Database name from configMap
+              value: postgres
+            - name: POSTGRES_DB_PASSWORD # Setting Database password from Secret
+              value: postgres
+            - name: EUREKA_HOST
+              value: discovery-server

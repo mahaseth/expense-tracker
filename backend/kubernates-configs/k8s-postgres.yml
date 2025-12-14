@@ -1,0 +1,92 @@
+# Configure 'Deployment' of postgres server
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresdb
+  labels:
+    app: postgresdb
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      app: postgresdb
+      tier: database
+  template:
+    metadata:
+      labels:
+        app: postgresdb
+        tier: database
+    spec:
+      containers:
+        - image: postgres:15
+          name: postgresdb
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_DB
+              value: categorydb
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
+            - name: pg-initdb-sql
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+        - name: pg-initdb-sql
+          configMap:
+            name: postgres-initdb-config
+            defaultMode: 420
+---
+# Define a 'Service' To Expose postgres to Other Services
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresdb # DNS name
+  labels:
+    app: postgresdb
+    tier: database
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: postgresdb
+    tier: database
+  clusterIP: None
+
+---
+# PersistentVolumeClaim for Postgres data
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+  labels:
+    app: postgresdb
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+# ConfigMap that provides init SQL to create databases if they do not exist
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-initdb-config
+  labels:
+    app: postgresdb
+data:
+  init-user-category.sql: |
+    -- Create databases if they do not exist (idempotent)
+    SELECT 'CREATE DATABASE userdb' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'userdb')\gexec
+    SELECT 'CREATE DATABASE categorydb' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'categorydb')\gexec

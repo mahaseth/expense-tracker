@@ -1,0 +1,33 @@
+# eureka-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discovery-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discovery-server
+  template:
+    metadata:
+      labels:
+        app: discovery-server
+    spec:
+      containers:
+        - name: discovery-server
+          image: docker.io/library/discovery-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8094
+---
+# eureka-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: discovery-server
+spec:
+  selector:
+    app: discovery-server
+  ports:
+    - port: 8094
+      targetPort: 8094
